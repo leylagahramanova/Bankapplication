@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register - Leyla's Bank</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000d1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .navbar-custom {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-custom a {
+            color: #ffd700; !important;
+        }
+
+        .navbar-custom .navbar-brand {
+            font-weight: bold;
+           color: #ffd700;
+        }
+
+        .navbar-custom .social-icons a {
+            color: #ffffff;
+            margin-left: 15px;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-custom .social-icons a:hover {
+            color: #ffd700;
+        }
+
+        .container {
+            max-width: 60rem;
+            margin: 100px auto 0px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+         .box{
+      display: flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+        .container h2, .container h3 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            color: #dddddd;
+            text-align: left;
+            display: block;
+        }
+
+        .form-group input, .form-group select {
+            border: 1px solid #333;
+            background-color: #000d1a;
+            color: #ffffff;
+        }
+
+        .btn {
+            background-color: #000d1a;
+            border: none;
+            color: black;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn h3 {
+            color: #fff;
+        }
+
+        .btn:hover {
+            background-color: #ffc700;
+        }
+
+        .custom-link {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .custom-link:hover {
+            color: #ffecb3;
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 0;
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .container h2, .container h3 {
+                font-size: 1.5rem;
+            }
+
+            .form-group label, .form-group input, .form-group select {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 10px;
+            }
+        }
+label{margin-bottom:0;}
+        @media (max-width: 576px) {
+            body {
+                height: auto;
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .container h2, .container h3 {
+                font-size: 1.25rem;
+                margin-bottom: 0;
+            }
+
+            .form-group input, .form-group select {
+                font-size: 0.85rem;
+                padding: 8px;
+            }
+
+            .btn {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            .navbar-custom .social-icons a {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand" href="#">Leyla's Bank</a>
+
+</nav>
+
+<div class="container">
+    <form method="post" action="/register">
+        <div class="box">
+        <div class="register">
+            <h2 class="text-center">Register a New Account</h2>
+            <div class="form-group">
+                <label>Username:</label>
+                <input type="text" class="form-control" name="username" required />
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" class="form-control" name="password" required />
+            </div>
+        </div>
+        <div class="cardinfo">
+            <h3>Card Details</h3>
+            <div class="form-group">
+                <label>Card Name:</label>
+                <input type="text" class="form-control" name="cardName" required />
+            </div>
+            <div class="form-group">
+                <label>Card Number:</label>
+                <input type="text" class="form-control" name="cardNumber" required />
+            </div>
+            <div class="form-group">
+                <label>Card Type:</label>
+                <select name="cardType" class="form-control" required>
+                    <option value="CREDIT">Credit</option>
+                    <option value="DEBIT">Debit</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Card Balance:</label>
+                <input type="number" class="form-control" name="balance" required />
+            </div>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-block"><h3>Register</h3></button>
+
+    </form>
+    <p class="text-center mt-3">Already have an account? <a href="/login" class="custom-link">Login here</a></p>
+
+    <div th:if="${error}" class="alert alert-danger mt-3 text-center">
+        User already present.
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2024 Code With Goldencat. All rights reserved. | <a href="#" class="custom-link">Privacy Policy</a> | <a href="#" class="custom-link">Terms of Service</a></p>
+</footer>
+
+</body>
+</html>
